@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import altair as alt
-from transformers import pipeline
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 
@@ -28,6 +27,7 @@ def load_data():
 @st.cache_resource
 def load_sentiment_model():
     """Loads the AI model once and caches it."""
+    from transformers import pipeline
     return pipeline("sentiment-analysis", model="distilbert-base-uncased-finetuned-sst-2-english")
 
 # Load Data and Model
