@@ -36,11 +36,7 @@ if df is None:
     st.error("Error: 'reviews.csv' not found. Please run scraper.py first!")
     st.stop()
 
-try:
-    sentiment_pipeline = load_sentiment_model()
-except Exception as e:
-    st.error(f"Error loading AI Model: {e}")
-    st.stop()
+
 
 # --- 2. SIDEBAR NAVIGATION ---
 st.sidebar.title("Navigation")
@@ -89,6 +85,8 @@ elif page == "Reviews":
         st.subheader("AI Sentiment Analysis")
         
         if st.button("Run AI Analysis"):
+            sentiment_pipeline = load_sentiment_model()
+            results = sentiment_pipeline(filtered_df["text"].tolist(), truncation=True)
             with st.spinner("The AI is reading your reviews..."):
                 try:
                     # 1. Run the AI Model
